@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dynamic Tractor Rental Form</title>
+    <title>Dynamic Harvester Rental Form</title>
     <style>
         /* Improved CSS design for better user experience */
+        .cal {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .cal:hover {
+            background-color: #0056b3;
+        }
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -17,7 +28,7 @@
             padding: 20px;
         }
         form {
-            width: 50%;
+            width: 40%;
             margin: 0 auto;
             background-color: #a39eff;
             padding: 20px;
@@ -25,11 +36,11 @@
             border-radius: 10px;
             position: relative;
         }
-        .tractor {
+        .harvester {
             position: absolute;
             top: 20px;
             left: 20px;
-            animation: moveTractor 10s linear infinite;
+            animation: moveHarvester 10s linear infinite;
         }
         label {
             display: block;
@@ -39,7 +50,7 @@
         input[type="text"],
         input[type="number"],
         input[type="date"] {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin: 5px 0;
             border: 1px solid #ccc;
@@ -69,43 +80,63 @@
         #submit-button:hover {
             background-color: #0056b3;
         }
-        @keyframes moveTractor {
+        @keyframes moveHarvester {
             0% {
                 left: 0px;
             }
             100% {
                 left: calc(100% - 100px);
             }
+        }
+        font{
+            
+            margin-bottom: 10px;
+            font-weight: bold;
             
         }
+        .gst{
+            color: black;
+        }
+        #pay-button{
+                width: 200px;
+        }
+        
     </style>
 </head>
 <body>
-    <h1><img width="10%" height="11%" src="tractor.png" alt="Mini Tractor" class="tractor">Tractor Rental Form</h1>
-    <form id="rentalForm">
-        
-        <label for="tractorModel">Select Tractor Model:</label>
-        <select id="tractorModel" name="tractorModel">
-            <option value="tractorA">Tractor A</option>
-            <option value="tractorB">Tractor B</option>
-            <option value="tractorC">Tractor C</option>
+    <h1><img width="10%" height="11%" src="harvestor.png" alt="Harvester" class="harvester">Harvester Rental Form</h1>
+    <form id="rentalForm">  <br>
+        <label for="harvesterModel">Select Harvester Model:</label>
+        <select id="harvesterModel" name="harvesterModel">
+            <option value="harvesterA">Harvester A</option>
+            <option value="harvesterB">Harvester B</option>
+            <option value="harvesterC">Harvester C</option>
         </select>
-
+        <br><br>
         <label for="rentalDuration">Rental Duration (months):</label>
         <input type="number" id="rentalDuration" name="rentalDuration" required>
-
+        <br><br>
         <label for="startRentalDate">Start Date:</label>
         <input type="date" id="startRentalDate" name="startRentalDate" required>
-
-        <label for="deliveryPickup">Delivery or Pickup:</label>
+        <br><br>
+        <font> Delivery or Pickup:</font>
         <input type="radio" id="delivery" name="deliveryPickup" value="Delivery" required> Delivery
-        <input type="radio" id="pickup" name="deliveryPickup" value="Pickup" required> Pickup
-
-        <label for="rentalFee">Estimated Rental Fee:</label>
-        <span id="calculatedRentalFee">₹0</span>
-
-        <label for="securityDeposit">Security Deposit:</label>
+        <input type="radio" id "pickup" name="deliveryPickup" value="Pickup" required> Pickup
+        <br><br>
+       <font>Security Deposit:</font>
         <span id="securityDepositAmount">₹5,000</span>
+        <br><br>
+        <font>Estimated Rental Fee:</font>
+        <span id="calculatedRentalFee">₹0</span>
+                <br><br>
+        <!-- New input for GST -->
+        <label for="gst">GST:</label>
+        <input type="text" id="gst" readonly>
+
+        <label for="totalRentalFee">Total Rental Fee (including GST):</label>
+        <span id="totalRentalFee">₹0</span>
+
+        
 
         <label for="insurance">Do you have equipment insurance?</label>
         <input type="radio" id="yes" name="insurance" value="Yes" required> Yes
@@ -115,7 +146,49 @@
         <input type="checkbox" id="termsConditions" name="termsConditions" required>
 
         <br><br>
+        <button type="button" class="cal" id="calculate-button" onclick="calculateRentalFee()">Calculate Rent</button>
         <button type="submit" id="submit-button">Submit</button>
-    </form>
+        <br><br>
+       <center><button type="button" class="cal" id="pay-button" style="display: none;">Pay</button></center> 
+
+    <script>
+         function calculateRentalFee() {
+        let rentalDuration = document.getElementById("rentalDuration").value;
+        const deliveryPickup = document.querySelector('input[name="deliveryPickup"]:checked');
+
+        if (!rentalDuration || !deliveryPickup) {
+            alert("Please select Rental Duration and Delivery or Pickup.");
+            return;
+        }
+
+        rentalDuration = parseInt(rentalDuration);
+        let rentalFee = 0;
+        let gst = 0;
+
+        if (rentalDuration === 1) {
+            rentalFee = 650;
+        } else if (rentalDuration > 1) {
+            rentalFee = 650 + (rentalDuration - 1) * 200;
+        }
+
+        if (deliveryPickup.value === "Delivery") {
+            rentalFee += 500;
+        }
+
+        // Calculate GST (10% of rental fee)
+        gst = 0.1 * rentalFee;
+
+        // Calculate total rental fee including GST
+        let totalRentalFee = rentalFee + gst+5000;
+
+        document.getElementById("calculatedRentalFee").textContent = `₹${rentalFee}`;
+        document.getElementById("gst").value = `₹${gst}`;
+        document.getElementById("totalRentalFee").textContent = `₹${totalRentalFee}`;
+
+        // Show the "Pay" button when rental fee is calculated
+        // document.getElementById("pay-button").style.display = "block";
+        document.getElementById("pay-button").style.display = "block";
+    }
+    </script>
 </body>
 </html>
