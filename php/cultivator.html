@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Tractor Rental Form</title>
+    <style>
+        /* Improved CSS design for better user experience */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffee00;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #7b00ff;
+            color: #fff;
+            padding: 20px;
+        }
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #a39eff;
+            padding: 20px;
+            border: 11px solid #412e74;
+            border-radius: 10px;
+            position: relative;
+        }
+        .tractor {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            animation: moveTractor 10s linear infinite;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        span {
+            font-weight: bold;
+        }
+        #submit-button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #submit-button:hover {
+            background-color: #0056b3;
+        }
+        @keyframes moveTractor {
+            0% {
+                left: 0px;
+            }
+            100% {
+                left: calc(100% - 100px);
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <h1><img width="10%" height="11%" src="tractor.png" alt="Mini Tractor" class="tractor">Tractor Rental Form</h1>
+    <form id="rentalForm">
+        
+        <label for="tractorModel">Select Tractor Model:</label>
+        <select id="tractorModel" name="tractorModel">
+            <option value="tractorA">Tractor A</option>
+            <option value="tractorB">Tractor B</option>
+            <option value="tractorC">Tractor C</option>
+        </select>
+
+        <label for="rentalDuration">Rental Duration (months):</label>
+        <input type="number" id="rentalDuration" name="rentalDuration" required>
+
+        <label for="startRentalDate">Start Date:</label>
+        <input type="date" id="startRentalDate" name="startRentalDate" required>
+
+        <label for="deliveryPickup">Delivery or Pickup:</label>
+        <input type="radio" id="delivery" name="deliveryPickup" value="Delivery" required> Delivery
+        <input type="radio" id="pickup" name="deliveryPickup" value="Pickup" required> Pickup
+
+        <label for="rentalFee">Estimated Rental Fee:</label>
+        <span id="calculatedRentalFee">₹0</span>
+
+        <label for="securityDeposit">Security Deposit:</label>
+        <span id="securityDepositAmount">₹5,000</span>
+
+        <label for="insurance">Do you have equipment insurance?</label>
+        <input type="radio" id="yes" name="insurance" value="Yes" required> Yes
+        <input type="radio" id="no" name="insurance" value="No" required> No
+
+        <label for="termsConditions">I agree to the terms and conditions:</label>
+        <input type="checkbox" id="termsConditions" name="termsConditions" required>
+
+        <br><br>
+        <button type="submit" id="submit-button">Submit</button>
+    </form>
+</body>
+</html>
