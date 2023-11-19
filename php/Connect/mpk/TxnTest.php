@@ -29,10 +29,10 @@
 </style>
 </head>
 <body>
-<?php require 'C:\xampp\htdocs\Projects\AcroProj\FINAL_PROJ\Connect\partials\_nav2.php';?>
+
 
 	<div>
-	<img  class="img1" src="mus1.jpg" width="1520px" height="650px">
+	<img  class="img1" src="farm.jpg" width="1550px" height="800px">
 
 	<div class="dis"><h1><center>Merchant Check Out Page</center></h1>
 	<form method="post" action="pgRedirect.php">
