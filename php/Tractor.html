@@ -7,7 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #ffee00;
+            /* background-color: #ffee00; */
             margin: 0;
             padding: 0;
         }
@@ -78,9 +78,19 @@
             }
             
         }
+        .trac{
+             position: absolute;
+             left: 0px;
+             top: 0px;
+             z-index: -1;
+             height: 1100px;
+             width: 1550px;
+             filter: blur(3px);
+        }    
     </style>
 </head>
 <body>
+    <img class="trac" src="tract.jpg" alt="image not found">
     <h1><img width="10%" height="11%" src="tractor.png" alt="Mini Tractor" class="tractor">Tractor Rental Form</h1>
     <form id="rentalForm">
         
