@@ -139,6 +139,12 @@
             border: 1px solid #888;
             width: 80%;
         }
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        #termsAndConditionsLabel{
+            display: inline;
+        }
         
     </style>
 </head>
@@ -177,7 +183,8 @@
         <label for="totalRentalFee">Total Rental Fee (including GST):</label>
         <span id="totalRentalFee">₹0</span>
         <br><br>
-        <label id="termsAndConditionsLabel" onclick="openModal(); return false;">Terms and Conditions&nbsp;&nbsp;<input type="checkbox" id="termsConditions" name="termsConditions" required></label>
+        <label id="termsAndConditionsLabel" onclick="openModal(); return false;">Terms and Conditions</label>
+        <input type="checkbox" id="termsConditions" name="termsConditions" required>
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <!-- Close button -->
@@ -251,7 +258,7 @@
         <button type="button" class="cal" id="calculate-button" onclick="calculateRentalFee()">Calculate Rent</button>
         <!-- <button type="submit" id="submit-button">Submit</button> -->
         <br><br>
-       <center><button type="button" class="cal" id="pay-button" onclick="runScript()" style="display: none;">Pay</button></center> 
+       <center><button type="button" class="cal" id="pay-button" onclick="runScript()" style="display: none;">Checkout</button></center> 
 
     <script>
         function openModal() {
@@ -290,7 +297,7 @@
 
         // Calculate total rental fee including GST
         let totalRentalFee = rentalFee + gst+5000;
-
+        sessionStorage.setItem('amount', totalRentalFee );
         document.getElementById("calculatedRentalFee").textContent = `₹${rentalFee}`;
         document.getElementById("gst").value = `₹${gst}`;
         document.getElementById("totalRentalFee").textContent = `₹${totalRentalFee}`;
@@ -313,6 +320,7 @@ function showTermsAndConditions() {
             // Display a simple alert as a placeholder for the popup
             alert(popupContent);
         }
+        
     </script>
 </body>
 </html>

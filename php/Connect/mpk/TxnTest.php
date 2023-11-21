@@ -35,7 +35,7 @@
 	<img  class="img1" src="farm.jpg" width="1550px" height="800px">
 
 	<div class="dis"><h1><center>Merchant Check Out Page</center></h1>
-	<form method="post" action="pgRedirect.php">
+	<form method="post" action="../../Paytm_Gateway_Final_Implementation/please_wait.html">
 	<center><table border="12">
 			<tbody>
 				<tr>
@@ -73,13 +73,13 @@
 					<td><label>txnAmount* :</label></td>
 					<td><input title="TXN_AMOUNT" tabindex="10"
 						type="text" name="TXN_AMOUNT"
-						value="1000">
+						id="amountInput" readonly>
 					</td>
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
-					<td><input value="CheckOut" type="submit" style="width:189px;"	onclick=""></td>
+					<td><input value="PAY" type="submit" style="width:189px;"	onclick=""></td>
 				</tr>
 			</tbody>
 		</table>
@@ -88,5 +88,15 @@
 	
 </div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<script> 
+	 var amount = sessionStorage.getItem('amount');
+	
+    // Set the value of the input field
+    document.getElementById('amountInput').value = amount;
+
+    // Now, you can use the 'amount' variable in this page as needed
+    console.log('Amount:', amount);
+
+	</script>
 </body>
 </html>

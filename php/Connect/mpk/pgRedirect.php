@@ -25,7 +25,7 @@ $paramList["TXN_AMOUNT"] = $TXN_AMOUNT;
 $paramList["WEBSITE"] = PAYTM_MERCHANT_WEBSITE;
 
 
-$paramList["CALLBACK_URL"] = "http://localhost/MinorProjViSem/php/Connect/mpk/pgResponse.php";
+$paramList["CALLBACK_URL"] = "http://localhost/MinorProjViSem/php/Paytm_Gateway_Final_Implementation/tp.html";
 
 // $paramList["MSISDN"] = $MSISDN; //Mobile number of customer
 // $paramList["EMAIL"] = $EMAIL; //Email ID of customer
