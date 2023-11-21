@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dynamic Tractor Rental Form</title>
+    <title>Fertilizer Spreader Rental Form</title>
     <style>
         /* Improved CSS design for better user experience */
+        .cal {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .cal:hover {
+            background-color: #0056b3;
+        }
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #ffee00;
+            /* background-color: #ffee00; */
             margin: 0;
             padding: 0;
         }
         h1 {
-            background-color: #7b00ff;
+            background-color: rgb(243, 188, 51);
             color: #fff;
             padding: 20px;
         }
         form {
-            width: 50%;
+            width: 40%;
             margin: 0 auto;
             background-color: #a39eff;
             padding: 20px;
@@ -25,11 +36,11 @@
             border-radius: 10px;
             position: relative;
         }
-        .tractor {
+        .harvester {
             position: absolute;
             top: 20px;
             left: 20px;
-            animation: moveTractor 10s linear infinite;
+            animation: moveHarvester 10s linear infinite;
         }
         label {
             display: block;
@@ -39,7 +50,7 @@
         input[type="text"],
         input[type="number"],
         input[type="date"] {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin: 5px 0;
             border: 1px solid #ccc;
@@ -69,53 +80,247 @@
         #submit-button:hover {
             background-color: #0056b3;
         }
-        @keyframes moveTractor {
+        @keyframes moveHarvester {
             0% {
                 left: 0px;
             }
             100% {
                 left: calc(100% - 100px);
             }
+        }
+        font{
+            
+            margin-bottom: 10px;
+            font-weight: bold;
             
         }
+        .gst{
+            color: black;
+        }
+        #pay-button{
+                width: 200px;
+        }
+        .har{
+            position: absolute;
+             left: 0px;
+             top: 0px;
+             z-index: -1;
+             height: 1100px;
+             width: 1550px;
+             filter: blur(3px);
+        }
+        #termsConditions{
+            transform: scale(1.5); /* Adjust the scaling factor as needed */
+            margin-right: 5px; /* Optional: Add some space to the right of the checkbox */
+        }
+        #termsAndConditionsLabel {
+            color: #007BFF;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        #myModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 50px;
+        }
+
+        /* Style for the modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        #termsAndConditionsLabel{
+            display: inline;
+        }
+        
     </style>
 </head>
 <body>
-    <h1><img width="10%" height="11%" src="tractor.png" alt="Mini Tractor" class="tractor">Spreader Rental Form</h1>
-    <form id="rentalForm">
-        
-        <label for="tractorModel">Select Tractor Model:</label>
-        <select id="tractorModel" name="tractorModel">
-            <option value="tractorA">Spreader A</option>
-            <option value="tractorB">Spreader B</option>
-            <option value="tractorC">Spreader C</option>
+    <img class="har" src="spre.png" alt="img not found">
+    <h1><img width="10%" height="11%" src="spre.png" alt="Harvester" class="harvester">Fertilizer Spreader Rental Form</h1>
+    <form id="rentalForm">  <br>
+        <label for="harvesterModel">Select Spreader Model:</label>
+        <select id="harvesterModel" name="harvesterModel">
+            <option value="harvesterA">Spreader A</option>
+            <option value="harvesterB">Spreader B</option>
+            <option value="harvesterC">Spreader C</option>
         </select>
-
+        <br><br>
         <label for="rentalDuration">Rental Duration (months):</label>
-        <input type="number" id="rentalDuration" name="rentalDuration" required>
-
+        <input type="number" id="rentalDuration" name="rentalDuration" required min="1">
+        <br><br>
         <label for="startRentalDate">Start Date:</label>
         <input type="date" id="startRentalDate" name="startRentalDate" required>
+        <br><br>
 
-        <label for="deliveryPickup">Delivery or Pickup:</label>
+        <font> Delivery or Pickup:</font>
         <input type="radio" id="delivery" name="deliveryPickup" value="Delivery" required> Delivery
-        <input type="radio" id="pickup" name="deliveryPickup" value="Pickup" required> Pickup
-
-        <label for="rentalFee">Estimated Rental Fee:</label>
-        <span id="calculatedRentalFee">₹0</span>
-
-        <label for="securityDeposit">Security Deposit:</label>
+        <input type="radio" id "pickup" name="deliveryPickup" value="Pickup" required> Pickup
+        <br><br>
+       <font>Security Deposit:</font>
         <span id="securityDepositAmount">₹5,000</span>
+        <br><br>
+        <font>Estimated Rental Fee:</font>
+        <span id="calculatedRentalFee">₹0</span>
+                <br><br>
+        <!-- New input for GST -->
+        <label for="gst">GST:</label>
+        <input type="text" id="gst" readonly>
 
-        <label for="insurance">Do you have equipment insurance?</label>
-        <input type="radio" id="yes" name="insurance" value="Yes" required> Yes
-        <input type="radio" id="no" name="insurance" value="No" required> No
-
-        <label for="termsConditions">I agree to the terms and conditions:</label>
+        <label for="totalRentalFee">Total Rental Fee (including GST):</label>
+        <span id="totalRentalFee">₹0</span>
+        <br><br>
+        <label id="termsAndConditionsLabel" onclick="openModal(); return false;">Terms and Conditions</label>
         <input type="checkbox" id="termsConditions" name="termsConditions" required>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <!-- Close button -->
+                <span onclick="closeModal()" class="close">&times;</span>
+    
+                <!-- Popup content -->
+                <h1><h2>Terms and Conditions for Rental of Agricultural Equipment</h2>
+
+                    <ol>
+                        <li><strong>Equipment Description:</strong><br>
+                            The "Equipment" refers to the agricultural machinery specified in the rental agreement.
+                        </li>
+                
+                        <li><strong>Rental Period:</strong><br>
+                            The rental period begins on the agreed start date and continues for the duration specified in the rental agreement.
+                        </li>
+                
+                        <li><strong>Rental Rates and Payments:</strong><br>
+                            The rental rates are as specified in the rental agreement and are payable in advance.<br>
+                            Payments can be made by [accepted payment methods], and late payments may incur additional charges.
+                        </li>
+                
+                        <li><strong>Security Deposit:</strong><br>
+                            A security deposit is required before the equipment is delivered or picked up.<br>
+                            The deposit will be refunded upon the satisfactory return of the equipment, minus any deductions for damages or outstanding fees.
+                        </li>
+                
+                        <li><strong>Delivery and Pickup:</strong><br>
+                            The Lessee shall be responsible for the cost of delivery and pickup of the equipment unless otherwise specified in the rental agreement.
+                        </li>
+                
+                        <li><strong>Maintenance and Care:</strong><br>
+                            The Lessee is responsible for maintaining the equipment in good working condition during the rental period.<br>
+                            Any damage resulting from negligence or misuse is the responsibility of the Lessee.
+                        </li>
+                
+                        <li><strong>Insurance:</strong><br>
+                            The Lessee may be required to provide proof of insurance covering the rented equipment during the rental period.
+                        </li>
+                
+                        <li><strong>Liability:</strong><br>
+                            The Lessor shall not be held liable for any injury, loss, or damage caused by the use of the equipment during the rental period.
+                        </li>
+                
+                        <li><strong>Termination:</strong><br>
+                            The Lessor reserves the right to terminate the rental agreement if the Lessee breaches any terms or conditions.
+                        </li>
+                
+                        <li><strong>Force Majeure:</strong><br>
+                            Neither party shall be liable for any failure or delay in performance due to circumstances beyond their control.
+                        </li>
+                
+                        <li><strong>Governing Law:</strong><br>
+                            This agreement shall be governed by and construed in accordance with the laws of [your jurisdiction].
+                        </li>
+                
+                        <li><strong>Miscellaneous:</strong><br>
+                            Any modifications to this agreement must be made in writing and signed by both parties.<br>
+                            This agreement constitutes the entire understanding between the parties.
+                        </li>
+                
+                        <li><strong>Signatures:</strong><br>
+                            Both parties acknowledge that they have read and understood the terms and conditions and agree to be bound by them.
+                        </li>
+                    </ol></h1>
+                <!-- Add your content here -->
+            </div>
+        </div>
 
         <br><br>
-        <button type="submit" id="submit-button">Submit</button>
-    </form>
+        <button type="button" class="cal" id="calculate-button" onclick="calculateRentalFee()">Calculate Rent</button>
+        <!-- <button type="submit" id="submit-button">Submit</button> -->
+        <br><br>
+       <center><button type="button" class="cal" id="pay-button" onclick="runScript()" style="display: none;">Checkout</button></center> 
+
+    <script>
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+        document.getElementById("startRentalDate").min = new Date().toISOString().split("T")[0];
+         function calculateRentalFee() {
+        let rentalDuration = document.getElementById("rentalDuration").value;
+        const deliveryPickup = document.querySelector('input[name="deliveryPickup"]:checked');
+
+        if (!rentalDuration || !deliveryPickup) {
+            alert("Please select Rental Duration and Delivery or Pickup.");
+            return;
+        }
+
+        rentalDuration = parseInt(rentalDuration);
+        let rentalFee = 0;
+        let gst = 0;
+
+        if (rentalDuration === 1) {
+            rentalFee = 650;
+        } else if (rentalDuration > 1) {
+            rentalFee = 650 + (rentalDuration - 1) * 200;
+        }
+
+        if (deliveryPickup.value === "Delivery") {
+            rentalFee += 500;
+        }
+
+        // Calculate GST (10% of rental fee)
+        gst = 0.1 * rentalFee;
+
+        // Calculate total rental fee including GST
+        let totalRentalFee = rentalFee + gst+5000;
+        sessionStorage.setItem('amount', totalRentalFee );
+        document.getElementById("calculatedRentalFee").textContent = `₹${rentalFee}`;
+        document.getElementById("gst").value = `₹${gst}`;
+        document.getElementById("totalRentalFee").textContent = `₹${totalRentalFee}`;
+
+        // Show the "Pay" button when rental fee is calculated
+        // document.getElementById("pay-button").style.display = "block";
+        document.getElementById("pay-button").style.display = "block";
+    }
+    function runScript() {
+//     // Specify the relative path to the script in Folder A
+     var scriptPath = 'http://localhost/MinorProjViSem/php/Connect/mpk/TxnTest.php';
+
+//     // Open the script in a new browser window or tab
+    window.open(scriptPath, '_blank');
+}
+function showTermsAndConditions() {
+            // You can customize the content and appearance of the popup
+            var popupContent = "";
+
+            // Display a simple alert as a placeholder for the popup
+            alert(popupContent);
+        }
+        
+    </script>
 </body>
 </html>
