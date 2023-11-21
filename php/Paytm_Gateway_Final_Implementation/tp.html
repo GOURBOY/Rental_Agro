@@ -51,10 +51,10 @@
             <div class="rightBox">
                 <div class="orderDetails">
                     <div class="orderSummaryBox">
-                        <p class="itemprice extra"><span>Total MRP&nbsp;<b class="greyText">(Inclusive of all charges)</b></span><span>Rs 1500.00</span></p>
+                        <p class="itemprice extra" id="productPrice2"><span>Total MRP&nbsp;<b class="greyText">(Inclusive of all charges)</b></span><span>Rs 1500.00</span></p>
                         <p class="itemprice extra"><span>Discount</span><span>Rs 0.00</span></p>
                         <p class="itemprice extra"><span>Shipping Charges</span>Rs 0.00<span></span></p>
-                        <p class="itemprice"><span><b>Total Amount Payable</b></span><span><b>Rs 1500.00</b></span></p>
+                        <p class="itemprice" id="productPrice3"><span><b>Total Amount Payable</b></span><span><b>Rs 1500.00</b></span></p>
                         <button class="button" id="paytmWithPaytm">Pay with Paytm</button>
                     </div>
                 </div>
@@ -67,11 +67,21 @@
 </div>
 
 <script type="text/javascript">
+     var amount1 = sessionStorage.getItem('amount');
+     document.getElementById("productPrice").innerHTML = amount1;
+     document.getElementById("productPrice2").innerHTML = amount1;
+     document.getElementById("productPrice3").innerHTML = amount1;
+     sessionStorage.setItem('amount', amount1 );
+     function shift(){
+        window.location.href='fp.html';
+     }
+	// Set the value of the input field
+   // document.getElementById('amountInput').value = amount;
     document.getElementById("paytmWithPaytm").addEventListener("click", function(){
-        onScriptLoad("5e6818ceab5e44798e101f7bbdd997f71700594566839","1700594566812","1500.00");
+        onScriptLoad("3f5a1cf3885c4918a06e0dca5f18b6101700604891829","1700604891808",amount1);
     });
 
-    function onScriptLoad(txnToken, orderId, amount) {
+    function onScriptLoad(txnToken, orderId, amount1) {
         var config = {
             "root": "",
             "flow": "DEFAULT",
@@ -87,7 +97,7 @@
                 "orderId": orderId,
                 "token": txnToken,
                 "tokenType": "TXN_TOKEN",
-                "amount": amount
+                "amount": amount1
             },
             "handler":{
                  "notifyMerchant": function (eventName, data) {

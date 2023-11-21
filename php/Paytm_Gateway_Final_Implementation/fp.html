@@ -1,0 +1,264 @@
+<html lang="en"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Demo Transaction with JS Checkout</title>
+    <link rel="shortcut icon" type="image/png" href="https://business.paytm.com/demo//static/images/icon.png?v=1.9">
+    <script type="text/javascript" async="" src="https://accounts.paytm.com/oauth-js-sdk/shim/bundle.js"></script><script type="text/javascript" async="" src="https://accounts.paytm.com/oauth-js-sdk/shim/bundle.js"></script><script type="text/javascript" async="" src="https://accounts.paytm.com/oauth-js-sdk/shim/bundle.js"></script><script type="text/javascript" async="" src="https://accounts.paytm.com/oauth-js-sdk/shim/bundle.js"></script>
+    <script type="application/javascript" src="https://business.paytm.com/demo//static/js/jquery.min.js"></script>
+    <link href="https://business.paytm.com/demo//static/css/style.css?v=1.9" rel="stylesheet">
+    <script type="application/javascript" src="https://securegw.paytm.in//merchantpgpui/checkoutjs/merchants/PYTMDM29354165830326.js"></script>
+    <link href="https://staticpg.paytm.in/checkoutjs/2019/paytm.style.css" rel="stylesheet" type="text/css">
+<link href="https://staticpg.paytm.in/checkoutjs/2019/paytm.style.css" rel="stylesheet" type="text/css"></head>
+<body>
+<header>
+    <div class="header-container">
+        <a href="https://developer.paytm.com/docs/">
+            <div class="logo">
+                <span><img src="https://business.paytm.com/demo//static/images/logo.png?v=1.9" alt="paytm logo image"></span>
+            </div>
+        </a>
+    </div>
+</header>
+<div class="main-content">
+    <div class="heading">
+        <h1>Demo Transaction with JS Checkout</h1>
+    </div>
+    <div class="container">
+        <div class="topitemDetailsBox">
+            <h3 class="extra"> Shopping Cart : (1 item)</h3>
+            <div class="itemDetailsBox">
+                <img src="LOGO3.png" alt="tractor">
+                <div class="item-discription">
+                    <span class="itemHeading" id="productName">Rental Agro</span>
+                    <p class="star">
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                        <span>★</span>
+                    </p>
+                    <p><b id="productPrice">6485</b></p>
+                    <p class="product-description extra">Paytm provides an end-to-end online payments solution. We accept and validate
+                        Internet payments via Credit Card, Debit Card, Net-Banking,
+                        UPI and popular Wallets from the end customers in real-time.</p>
+                </div>
+            </div>
+        </div>
+        <div class="topRightBox">
+            <h3>Order Summary</h3>
+            <div class="rightBox">
+                <div class="orderDetails">
+                    <div class="orderSummaryBox">
+                        <p class="itemprice extra" id="productPrice2">6485</p>
+                        <p class="itemprice extra"><span>Discount</span><span>Rs 0.00</span></p>
+                        <p class="itemprice extra"><span>Shipping Charges</span>Rs 0.00<span></span></p>
+                        <p class="itemprice" id="productPrice3">6485</p>
+                        <button class="button" id="paytmWithPaytm">Pay with Paytm</button>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <p class="grayText">*This is a real transaction, and the money will be auto-refunded to your account in 4-5 days</p>
+        </div>
+        <!-- end of top right box -->
+    </div>
+</div>
+
+<script type="text/javascript">
+     var amount1 = sessionStorage.getItem('amount');
+     document.getElementById("productPrice").innerHTML = amount1;
+     document.getElementById("productPrice2").innerHTML = amount1;
+     document.getElementById("productPrice3").innerHTML = amount1;
+	// Set the value of the input field
+   // document.getElementById('amountInput').value = amount;
+    document.getElementById("paytmWithPaytm").addEventListener("click", function(){
+        onScriptLoad("3f5a1cf3885c4918a06e0dca5f18b6101700604891829","1700604891808",amount1);
+    });
+
+    function onScriptLoad(txnToken, orderId, amount1) {
+        var config = {
+            "root": "",
+            "flow": "DEFAULT",
+            "merchant":{
+                 "name":"XYZ Enterprises",
+                 "logo":"https://business.paytm.com/demo//static/images/merchant-logo.png?v=1.4"
+             },
+             "style":{
+                 "headerBackgroundColor":"#8dd8ff",
+                 "headerColor":"#3f3f40"
+            },
+            "data": {
+                "orderId": orderId,
+                "token": txnToken,
+                "tokenType": "TXN_TOKEN",
+                "amount": amount1
+            },
+            "handler":{
+                 "notifyMerchant": function (eventName, data) {
+                    if(eventName == 'SESSION_EXPIRED'){
+                        alert("Your session has expired!!");
+                        location.reload();
+                    }
+                 }
+            }
+        };
+
+        if (window.Paytm && window.Paytm.CheckoutJS) {
+            // initialze configuration using init method
+            window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
+                console.log('Before JS Checkout invoke');
+                // after successfully update configuration invoke checkoutjs
+                window.Paytm.CheckoutJS.invoke();
+            }).catch(function onError(error) {
+                console.log("Error => ", error);
+            });
+        }
+    }
+    function exit(){
+        window.location.href='tp.html';
+    }
+</script>
+
+<footer>
+    <div class="footer-bottom">
+      <div class="lightBlue"></div>
+      <div class="darkBlue"></div>
+      <div class="linksdiv">
+      <ul class="footerlinks">
+        <li><a href="https://paytm.com/about-us/our-policies/" target="_blank">Terms of Service</a></li>
+        <li><a href="https://paytm.com/about-us/our-policies/" target="_blank">Privacy Policy</a></li>
+      </ul>
+      </div>
+      <div class="copyright footerlinks">
+        <ul><li>© 2020, One97 Communications Pvt. Ltd</li></ul>
+      </div>
+    </div>
+  </footer>
+
+<script async="" src="https://staticpg.paytm.in/checkoutjs/2019/paytm.checkout.js" type="application/javascript" crossorigin="anonymous"></script>
+<script type="application/javascript" src="https://staticpg.paytm.in/common/lib/logger/ui-logger-v11.min.js?11" async="" crossorigin="anonymous"></script>
+<script type="application/javascript">(function(w, d, q, o, t, s, f, se, js, fjs) {w[o] = w[o] || {init: function() {w[o][q] = arguments;}};(js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);js.type = t;js.async = 1;js.src = f;fjs.parentNode.insertBefore(js, fjs);})(window,document,'_beforeLoadConfig','Oauth','text/javascript','script','https://accounts.paytm.com/oauth-js-sdk/shim/bundle.js');</script>
+<iframe src="https://securegw.paytm.in/checkoutjs/2019/assets/iframes/dummy-frame.html" id="dummy-iframe" style="display: none;"></iframe>
+
+
+<script type="application/javascript" src="https://staticpg.paytm.in/common/lib/logger/ui-logger-v11.min.js?11" async="" crossorigin="anonymous"></script><script type="application/javascript">(function(w, d, q, o, t, s, f, se, js, fjs) {w[o] = w[o] || {init: function() {w[o][q] = arguments;}};(js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);js.type = t;js.async = 1;js.src = f;fjs.parentNode.insertBefore(js, fjs);})(window,document,'_beforeLoadConfig','Oauth','text/javascript','script','https://accounts.paytm.com/oauth-js-sdk/shim/bundle.js');</script><script async="" src="https://staticpg.paytm.in/checkoutjs/2019/paytm.checkout.js" type="application/javascript" crossorigin="anonymous"></script><script type="application/javascript" src="https://staticpg.paytm.in/common/lib/logger/ui-logger-v11.min.js?11" async="" crossorigin="anonymous"></script><script type="application/javascript">(function(w, d, q, o, t, s, f, se, js, fjs) {w[o] = w[o] || {init: function() {w[o][q] = arguments;}};(js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);js.type = t;js.async = 1;js.src = f;fjs.parentNode.insertBefore(js, fjs);})(window,document,'_beforeLoadConfig','Oauth','text/javascript','script','https://accounts.paytm.com/oauth-js-sdk/shim/bundle.js');</script><iframe src="https://securegw.paytm.in/checkoutjs/2019/assets/iframes/dummy-frame.html" id="dummy-iframe" style="display: none;"></iframe><div id="paytm-checkoutjs" class="ptm-own-element"><div id="paytm-app" class="paytm-wrapper ptm-pos-r  " data-id="paytm-checkout-app-1700602776014"><div id="checkout-home" class=" ptm-main    
+          
+        0
+        false
+        
+        "><div class="ptm-errorstrip ptm-pos-a ptm-hidden"><div class="ptm-msg-red ptm-error-bold">You have not selected any option to pay</div></div><div class="payment-content-wrap ptm-body-bg     ptm-nav-scrollable 
+          "><div id="ptm-checkout-header" class="ptm-header ptm-qr-header ptm-header-bg    "><div class="ptm-hidden ptm-header-sotp"><span class="ptm-cross ptm-pos-r xs-ptm-hidden" id="app-close-btn"></span><div><div class="ptm-select-txt ptm-select-sticky xs-ptm-hidden ptm-body-bg"><div class="ptm-pd-8"><div class="ptm-paytxtlbl ptm-body-color">Select an option to pay</div><span class="ptm-select-amount ptm-right ptm-body-color"><div class="rupee-symbol ptm-body-color">₹</div>1</span></div></div></div></div><div class="ptm-header-top ptm-pos-r xs-header-top"><span class="ptm-cross ptm-pos-r xs-ptm-hidden" onclick="exit()" id="app-close-btn"></span><div class="ptm-hedrlogo "><img src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/logo-paytm.svg" class=" ptm-logo false "></div></div><div class="ptm-header-bottom xs-header-bottom   "><div class="ptm-w100"><div class="dsktp-hidden xs-user-profile"></div></div><div class="ptm-pos-r ptm-subheading ptm-min-height ptm-w100-ib xs-ptm-hidden
+          "><div class="ptm-merchnt-dtl"><span class="ptm-name-txt ptm-header-color ptm-ellipsis">Rental Agro</span><div class="ptm-view-details ptm-header-color"></div></div><div class="ptm-logo-name ptm-pos-a ptm-fixheader-logo xs-mer-logo"><div class="ptm-logobox ptm-pos-r"><img class="ptm-brand-logo ptm-margin0 ptm-pos-a ptm-centralized" src="LOGO3.png" alt="merchant logo"></div></div></div></div><div class="ptm-notify-wrap ptm-pos-a xs-ptm-hidden"></div></div><div><div class="ptm-select-txt ptm-select-sticky xs-ptm-hidden ptm-body-bg"><div class="ptm-pd-8"><div class="ptm-paytxtlbl ptm-body-color"><span class="ptm-body-color" style="font-size: 18px; letter-spacing: -0.41px; font-weight: 700;">Select an option to pay</span></div><span class="ptm-select-amount ptm-right ptm-body-color"><div class="rupee-symbol ptm-body-color">₹</div>1</span></div></div></div><div class="payment-mode-warp xs-paymode-wrap  "><div id="ptm-qr-container"><div class="ptm-qr-wrap ptm-body-color paytm-txt-center"><div class="ptm-qrcode-box paytm-txt-center" style="margin-top: 0px;"><div class="ptm-qrbox-left ptm-right"><div class="ptm-qr-pay-text ptm-body-bg ptm-body-color ptm-qr-upi-pay-title" style="margin-top: 4px;">Scan QR with Paytm</div><div class="ptm-body-color" style="margin: 0px auto 8px;"><div class="ptm-txinfo ptm-upi-txinfo">Pay with Paytm Postpaid or UPI</div><span><a class="ptm-primary ptm-kno-link"> Know More</a></span></div><div class="ptm-pay-qr-upi-apps ptm-flex-row ptm-align-center ptm-justify-start"><span class="ptm-qr-pay-subtext">or Scan with any UPI app</span><img src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/paywithupiapps.svg" class="ptm-pay-with-upi"></div></div><div class="ptm-qrbox-right ptm-left"><div class="ptm-qr-img-container"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgAQAAAABVr4M4AAAEh0lEQVR4Xu2aMW7cQAxFaaRwuUfQUXQ06Wh7lDnCllsYZvj/50hKYiDYpAgQksViNPMf1XyQHNnmfxH288Yr0fCL0fCL0fCL8U/hYYoVz5+xcV8eZm+OhUS7LY/3j5BsPm7PlN8argTfpAj4+S3gPU7eY8O2eyw+3vzIS+b5jXJQDReCYZqAsYCU8XbCcBgB7NzwgkjXcFHYDAfbLENI53DY5v5AQhamhmvDKjHwExaQM10wKkyMhmvC3Aw4FDzwh6rPGlIVpsXVq7CDF4hquA5sihUOw0Dzm0XKG/5a+uvif4CPGOxMUYZUdOQnOmwdGn+3ixqKy7rh/xqepoFUJUYMs+T4u7BFqY1NccOlYPQhTLQcdg33Hw27WKhFoQy5sih41HAdmJbJeMOJpOxMKkxrPPFL3HwB0jVcD8YBvsnSPWxRshrOKP2khvUom1bDZeCzM7FpwU+PdxwFHPdnLKABwyzzBQ0Xgge/pFB6uT8jiy3ONhZ5c+qFC9nYGA2XgRFkhoGJkCL9xO6ldPmC9FzDleCHHAYFtnYmUD1ywNcyBDE1S8P14HxmlmEcbbnAkd+RjP1smfBsdA2XgFF9stbgAA3JeTXyWHDqjSy6P4fDaLXrQNNwEdh5cDGWmhZ6ldN8li+Yea8Oa7gAPI2VjKMeTYVl0Vn8iHQYdhouBWNYufQhY2eilJ6LogPGMNDk1Qjma7gMrFpDh5HZQ6F6dEe6kO6sUIwwX/wqccOVYLkH7ScaEmwkxc5NZdFkMwNH02ENV4BTOrO4Jlqn1diZVH0Ab9OOeEHDleAoOjDNOiz9BJgKpAvNxhewQs0XMEvDZWBcjfSsGxHhD6aTw7LohNi4aLggTGlG2MijM4G57CCYN16gWBs+pRXg85tsfpIbl/8zQOy2EGYbm1frhkvBZ9E5FTIWCpOyGKwWPwtvTdQ0XAqefkopdjDHUIp6tM0sDI04o+FScB6sQ4eIzALP8QgrZGEb8x9qWMNFYB0Y3ePakcP4iF7F+zOO0o7cb7gOfOlVyCKrUYGjXxzWcEHYHzLW3chEDDUkZlHRORx2xFAZargGPIvOOv0UfeiJ3/DTI9sY5HKYsuzXXtVwAfjGz20yjb67nelQdLJCxQ5hLg6HNVwCdqefYCNKox7dJIYi/ASGR7FceH+OHWgaLgMPdaYN9QjSyHJem7mIuNF8802Zu+EysKuyUEE/oTBBsdvsVVyAiTKEdGevargKPIfdo2kZ09FzONjXfEHUI6ZDFjw3XAUeLEOhGJcPcDhS5M5TnsuIvHJYwzXgIxI2ZMFzGEt/S47xRZ7DHIymdZ2GGq4Aj3QNpYDui/5MuK9oWkznGnEAs1TttiBZw2XgGwhIZaMNO7JapAtY0jnrcPxtuBz8NPlJTouphdlCYXlriqJDY/ldEtcrG64Iq1elnwCnn5AXFQrGouf86FUNV4N/aEgoOkzns3vFDu5IOmq4FuyIfUVnSmNlutiG54LR+Dvz0moNV4JNsR4LzLjOFmXwE4qO8UPMF2Wo4RLwn0fDL0bDL0bDL0ZF+DtaeWZGH26MvAAAAABJRU5ErkJggg==" alt="" data-key="qr-code" class="ptm-qr-scan"></div></div></div></div></div><div class="ptm-paymode-border"></div><div class="ptm-grid-wrap ptm-w100-ib pd-0 "><div class="ptm-grid-inner"><div class="ptm-other-paymode ptm-body-color ptm-semibold ">More Payment Options</div><div class="card-main-div   "><div class="ptm-pay-method ptm-w100-ib ptm-noborder ptm-nav-selectable" id="checkout-card"><div class="ptm-radio-wrap ptm-pt11"><label class="ptm-lbl ptm-centralized ptm-left0"><input type="radio" name="verifyDEFAULT" class="ptm-margin0"><span class="ptm-checkmark"></span><div class="ptm-pay-method-cont "><div><p class="ptm-paymode-name ptm-lightbold ">Prepaid, Debit and Credit Cards</p><div class="ptm-upi-paymodes-icwrap ptm-flex-row ptm-align-center ptm-justify-start"><img src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/cc-rupay.png" alt="upi-apps" class="ptm-cc-rupay-icon"><img src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/cc-visa.png" alt="upi-apps" class="ptm-cc-visa-icon"><img src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/cc-mastercard.png" alt="upi-apps" class="ptm-cc-master-icon"><span class="ptm-more-upi-apps-txt ptm-body-color"> &amp; more</span></div></div></div></label><img class="ptm-grid-icon ptm-pos-a  " src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/card-icon-new.svg" alt=""><span class="ptm-arrow-right ptm-arr-position ptm-pos-a"></span></div><p class="ptm-global-bottom-border"></p></div></div><div class="ptm-bhipupi-main   "><div class="ptm-pay-method ptm-w100-ib ptm-noborder  ptm-nav-selectable
+          " id="checkout-upi"><div class="ptm-radio-wrap ptm-pt11 "><label class="ptm-lbl ptm-centralized ptm-left0"><input type="radio" name="verifyDEFAULT" class="ptm-margin0"><span class="ptm-checkmark"></span><div class="ptm-pay-method-cont"><p class="ptm-paymode-name ptm-lightbold ">UPI</p><div class="ptm-upi-paymodes-icwrap ptm-flex-row ptm-align-center ptm-justify-start"><img src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/upipayapps.svg" alt="upi-apps" class="ptm-diff-upi-apps"><span class="ptm-more-upi-apps-txt ptm-body-color"> &amp; more</span></div></div></label><img class="ptm-grid-icon ptm-pos-a" src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/upi-icon-new.svg" alt=""><span class="ptm-arrow-right ptm-arr-position ptm-pos-a"></span></div><div class="ptm-ch-limit"></div><p class="ptm-global-bottom-border"></p></div><div class="ptm-el-limit"></div></div><div class=" "><div class="ptm-pay-method ptm-w100-ib 
+        
+        ptm-nav-selectable" id="checkout-nb"><div class="ptm-radio-wrap ptm-pt11 "><label class="ptm-lbl ptm-centralized ptm-left0"><input type="radio" name="verifyDEFAULT" class="ptm-margin0"><span class="ptm-checkmark"></span><div class="ptm-pay-method-cont"><p class="ptm-paymode-name ptm-lightbold ">Net Banking</p><div class="ptm-body-color ptm-more-upi-apps-txt">All major banks supported</div></div></label><img class="ptm-grid-icon ptm-pos-a" src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/nb-icon-new.svg" alt=""><span class="ptm-arrow-right ptm-arr-position ptm-pos-a"></span><p class="ptm-global-bottom-border"></p></div></div></div></div></div></div><div class="ptm-footer ptm-white-bg xs-ptm-hidden
+      
+      " id="checkout-footer"><span id="footer-main-content-wrap"><img src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/secure.png" alt="secure" class="secure-img ptm-margin0"><span id="footer-text" class="ptm-text-blue ptm-body-color">100% Secure Payments <span class="ptm-fw-700">Powered by</span></span><img src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/logo-paytm.svg" alt="" class="ptm-pos-r ptm-ftr-logo "><img src="https://staticpg.paytm.in/checkoutjs/2019/assets/images/logo-blue.png" alt="" class="ptm-pos-r ptm-ftr-logo ptm-directotp-darklogo"></span></div></div><input class="ptm-hidden-input" id="ptm-hidden-input" type="tel"><div id="checkout-overlay-box" class=""></div><div class="ptm-brand-lines ptm-pos-a ptm-brand-strip"></div></div><style>
+#paytm-app .ptm-go-back-btn .ptm-back-btn, #paytm-app .ptm-go-back-btn .ptm-back-btn:before, #paytm-app .ptm-go-back-btn .ptm-back-btn:after{
+background: #3f3f40;
+
+}
+
+#paytm-app .ptm-checkmark{
+background-color: transparent;
+
+}
+
+#paytm-app .ptm-cp-n-btn{
+background-color: transparent !important;
+
+}
+
+#paytm-app ptm-lightblue-bg{
+background-color: #3f3f40;
+
+}
+
+#paytm-app .ptm-header-bg{
+background: #8dd8ff;
+
+}
+
+#paytm-app .ptm-closeIcon{
+background: #8dd8ff;
+
+}
+
+#paytm-app .ptm-header-color,#paytm-app .ptm-logo-name{
+color: #3f3f40;
+
+}
+
+#ptm-checkout-header .ptm-select-txt{
+color: #1d252d;
+
+}
+
+#paytm-app .ptm-header-color .ptm-arrow-down{
+border-color: #3f3f40;
+
+}
+
+#paytm-app .ptm-amount-color, #paytm-app .ptm-c-p label, #paytm-app .ptm-c-p span{
+color: #3f3f40;
+
+}
+
+#paytm-app .arrow-color{
+border-color: #3f3f40;
+
+}
+
+#paytm-app .ptm-cross:before,#paytm-app .ptm-cross:after,#paytm-app .ptm-close-wrap .ptm-cross:before,#paytm-app .ptm-close-wrap .ptm-cross:after{
+background: #3f3f40;
+
+}
+
+#paytm-app .ptm-cross.ptm-black:before,#paytm-app .ptm-cross.ptm-black:after{
+background: #000000;
+
+}
+
+#paytm-app .ptm-nb-cancel-btn, #paytm-app .ptm-inv, #paytm-app .ptm-custom-btn.ptm-inv{
+background: transparent;
+
+}
+
+#paytm-app .ptm-inv{
+background: transparent;
+
+}
+
+#paytm-app .ptm-modal-wrapper .ptm-btn-white{
+background: transparent;
+
+}
+
+#paytm-app .ptm-msg-red{
+color: #ff585d;
+
+}
+
+#paytm-app .ptm-custom-btn:disabled{
+background: gray;
+color: white;
+
+}
+
+#paytm-app .ptm-header-fix .ptm-amount span{
+color: #182233;
+
+}
+
+#paytm-app .ptm-header-fix .ptm-amount div{
+color: #182233;
+
+}
+
+#paytm-app .ptm-disabled-btn{
+background: #4d4d4d;
+opacity: 0.2;
+pointer-events: none;
+
+}
+</style></div></div></body></html>

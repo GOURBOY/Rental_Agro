@@ -56,6 +56,7 @@ $checkSum = getChecksumFromArray($paramList,PAYTM_MERCHANT_KEY);
 			</tbody>
 		</table>
 		<script type="text/javascript">
+			
 			document.f1.submit();
 		</script>
 	</form>

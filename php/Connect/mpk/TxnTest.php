@@ -93,7 +93,7 @@
 	
     // Set the value of the input field
     document.getElementById('amountInput').value = amount;
-
+	sessionStorage.setItem('amount', amount );
     // Now, you can use the 'amount' variable in this page as needed
     console.log('Amount:', amount);
 
