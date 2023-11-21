@@ -113,6 +113,33 @@
             transform: scale(1.5); /* Adjust the scaling factor as needed */
             margin-right: 5px; /* Optional: Add some space to the right of the checkbox */
         }
+        #termsAndConditionsLabel {
+            color: #007BFF;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        #myModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 50px;
+        }
+
+        /* Style for the modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        
     </style>
 </head>
 <body>
@@ -149,9 +176,76 @@
 
         <label for="totalRentalFee">Total Rental Fee (including GST):</label>
         <span id="totalRentalFee">₹0</span>
+        <br><br>
+        <label id="termsAndConditionsLabel" onclick="openModal(); return false;">Terms and Conditions&nbsp;&nbsp;<input type="checkbox" id="termsConditions" name="termsConditions" required></label>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <!-- Close button -->
+                <span onclick="closeModal()" class="close">&times;</span>
+    
+                <!-- Popup content -->
+                <h1><h2>Terms and Conditions for Rental of Agricultural Equipment</h2>
 
-        <label for="termsConditions">I agree to the terms and conditions: &nbsp;&nbsp;<input type="checkbox" id="termsConditions" name="termsConditions" required></label>
-        
+                    <ol>
+                        <li><strong>Equipment Description:</strong><br>
+                            The "Equipment" refers to the agricultural machinery specified in the rental agreement.
+                        </li>
+                
+                        <li><strong>Rental Period:</strong><br>
+                            The rental period begins on the agreed start date and continues for the duration specified in the rental agreement.
+                        </li>
+                
+                        <li><strong>Rental Rates and Payments:</strong><br>
+                            The rental rates are as specified in the rental agreement and are payable in advance.<br>
+                            Payments can be made by [accepted payment methods], and late payments may incur additional charges.
+                        </li>
+                
+                        <li><strong>Security Deposit:</strong><br>
+                            A security deposit is required before the equipment is delivered or picked up.<br>
+                            The deposit will be refunded upon the satisfactory return of the equipment, minus any deductions for damages or outstanding fees.
+                        </li>
+                
+                        <li><strong>Delivery and Pickup:</strong><br>
+                            The Lessee shall be responsible for the cost of delivery and pickup of the equipment unless otherwise specified in the rental agreement.
+                        </li>
+                
+                        <li><strong>Maintenance and Care:</strong><br>
+                            The Lessee is responsible for maintaining the equipment in good working condition during the rental period.<br>
+                            Any damage resulting from negligence or misuse is the responsibility of the Lessee.
+                        </li>
+                
+                        <li><strong>Insurance:</strong><br>
+                            The Lessee may be required to provide proof of insurance covering the rented equipment during the rental period.
+                        </li>
+                
+                        <li><strong>Liability:</strong><br>
+                            The Lessor shall not be held liable for any injury, loss, or damage caused by the use of the equipment during the rental period.
+                        </li>
+                
+                        <li><strong>Termination:</strong><br>
+                            The Lessor reserves the right to terminate the rental agreement if the Lessee breaches any terms or conditions.
+                        </li>
+                
+                        <li><strong>Force Majeure:</strong><br>
+                            Neither party shall be liable for any failure or delay in performance due to circumstances beyond their control.
+                        </li>
+                
+                        <li><strong>Governing Law:</strong><br>
+                            This agreement shall be governed by and construed in accordance with the laws of [your jurisdiction].
+                        </li>
+                
+                        <li><strong>Miscellaneous:</strong><br>
+                            Any modifications to this agreement must be made in writing and signed by both parties.<br>
+                            This agreement constitutes the entire understanding between the parties.
+                        </li>
+                
+                        <li><strong>Signatures:</strong><br>
+                            Both parties acknowledge that they have read and understood the terms and conditions and agree to be bound by them.
+                        </li>
+                    </ol></h1>
+                <!-- Add your content here -->
+            </div>
+        </div>
 
         <br><br>
         <button type="button" class="cal" id="calculate-button" onclick="calculateRentalFee()">Calculate Rent</button>
@@ -160,6 +254,13 @@
        <center><button type="button" class="cal" id="pay-button" onclick="runScript()" style="display: none;">Pay</button></center> 
 
     <script>
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
         document.getElementById("startRentalDate").min = new Date().toISOString().split("T")[0];
          function calculateRentalFee() {
         let rentalDuration = document.getElementById("rentalDuration").value;
@@ -205,6 +306,13 @@
 //     // Open the script in a new browser window or tab
     window.open(scriptPath, '_blank');
 }
+function showTermsAndConditions() {
+            // You can customize the content and appearance of the popup
+            var popupContent = "";
+
+            // Display a simple alert as a placeholder for the popup
+            alert(popupContent);
+        }
     </script>
 </body>
 </html>
