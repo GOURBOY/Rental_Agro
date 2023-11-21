@@ -109,6 +109,10 @@
              width: 1550px;
              filter: blur(3px);
         }
+        #termsConditions{
+            transform: scale(1.5); /* Adjust the scaling factor as needed */
+            margin-right: 5px; /* Optional: Add some space to the right of the checkbox */
+        }
     </style>
 </head>
 <body>
@@ -123,11 +127,12 @@
         </select>
         <br><br>
         <label for="rentalDuration">Rental Duration (months):</label>
-        <input type="number" id="rentalDuration" name="rentalDuration" required>
+        <input type="number" id="rentalDuration" name="rentalDuration" required min="1">
         <br><br>
         <label for="startRentalDate">Start Date:</label>
         <input type="date" id="startRentalDate" name="startRentalDate" required>
         <br><br>
+
         <font> Delivery or Pickup:</font>
         <input type="radio" id="delivery" name="deliveryPickup" value="Delivery" required> Delivery
         <input type="radio" id "pickup" name="deliveryPickup" value="Pickup" required> Pickup
@@ -145,14 +150,8 @@
         <label for="totalRentalFee">Total Rental Fee (including GST):</label>
         <span id="totalRentalFee">₹0</span>
 
+        <label for="termsConditions">I agree to the terms and conditions: &nbsp;&nbsp;<input type="checkbox" id="termsConditions" name="termsConditions" required></label>
         
-
-        <label for="insurance">Do you have equipment insurance?</label>
-        <input type="radio" id="yes" name="insurance" value="Yes" required> Yes
-        <input type="radio" id="no" name="insurance" value="No" required> No
-
-        <label for="termsConditions">I agree to the terms and conditions:</label>
-        <input type="checkbox" id="termsConditions" name="termsConditions" required>
 
         <br><br>
         <button type="button" class="cal" id="calculate-button" onclick="calculateRentalFee()">Calculate Rent</button>
@@ -161,6 +160,7 @@
        <center><button type="button" class="cal" id="pay-button" onclick="runScript()" style="display: none;">Pay</button></center> 
 
     <script>
+        document.getElementById("startRentalDate").min = new Date().toISOString().split("T")[0];
          function calculateRentalFee() {
         let rentalDuration = document.getElementById("rentalDuration").value;
         const deliveryPickup = document.querySelector('input[name="deliveryPickup"]:checked');
